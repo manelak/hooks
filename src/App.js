@@ -1,8 +1,11 @@
 import React,{useState} from 'react'
+import {Button} from 'react-bootstrap'
 import "./App.css";
 import Movielist from "./Component/MovieList/Movielist";
 import Search from'./Component/Search/Search'
 import Add from './Component/MovieList/Add'
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 
@@ -33,6 +36,42 @@ function App() {
    rating:6
   }
 ]
+const starList = [
+  {
+    id: 1,
+    icon: "★",
+    isColored: false,
+  },
+  {
+    id: 2,
+    icon: "★",
+    isColored: false,
+  },
+  {
+    id: 3,
+    icon: "★",
+    isColored: false,
+  },
+  {
+    id: 4,
+    icon: "★",
+    isColored: false,
+  },
+  {
+    id: 5,
+    icon: "★",
+    isColored: false,
+  },
+];
+
+const [tabStar, setTabStar] = useState(starList);
+const changeColor = (id) => {
+  setTabStar(
+    tabStar.map((el) =>
+      el.id === id ? { ...el, isColored: !el.isColored } : el
+    )
+  );
+};
 const [search, setSearch] = useState("")
 const handleSearch=(x) =>{setSearch(x)}
 const [newlist,setNewlist]=useState(movies)
@@ -41,10 +80,15 @@ const handlemovie=(y)=>{setNewlist(...movies,y)}
   return (
     <div className="App">
       <header className="App-header">
-       
+      <Button variant="outline-info" style={{color:'pink',fontFamily:'Cookie',fontSize:'30px',borderRadius:' 30px',paddingleft:'50px'}}>Filter by rating</Button>
+  {tabStar.map((star) => (
+  
+              <span className={star.isColored?"gold":"black"} onClick={() => changeColor(star.id)}>{star.icon}</span>
+              
+            ))}
           <Search handleSearch={handleSearch}/>
           
-       <Movielist movies={newlist} search={search} />
+       <Movielist movies={newlist} search={search} tabStar={tabStar} />
           <Add handlemovie={handlemovie}/>
         
       </header>
