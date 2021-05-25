@@ -5,7 +5,7 @@ import Movielist from "./Component/MovieList/Movielist";
 import Search from'./Component/Search/Search'
 import Add from './Component/MovieList/Add'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import ReactStars from 'react-rating-stars-component'
 
 
 
@@ -36,60 +36,30 @@ function App() {
    rating:6
   }
 ]
-const starList = [
-  {
-    id: 1,
-    icon: "★",
-    isColored: false,
-  },
-  {
-    id: 2,
-    icon: "★",
-    isColored: false,
-  },
-  {
-    id: 3,
-    icon: "★",
-    isColored: false,
-  },
-  {
-    id: 4,
-    icon: "★",
-    isColored: false,
-  },
-  {
-    id: 5,
-    icon: "★",
-    isColored: false,
-  },
-];
 
-const [tabStar, setTabStar] = useState(starList);
-const changeColor = (id) => {
-  setTabStar(
-    tabStar.map((el) =>
-      el.id === id ? { ...el, isColored: !el.isColored } : el
-    )
-  );
-};
+
 const [search, setSearch] = useState("")
 const handleSearch=(x) =>{setSearch(x)}
 const [newlist,setNewlist]=useState(movies)
 const handlemovie=(y)=>{setNewlist(...movies,y)}
-
+const [newRating,setNewRating]=useState(0)
+const ratingChanged = (newRating) => {
+  setNewRating(newRating)
+};
   return (
     <div className="App">
       <header className="App-header">
-      <Button variant="outline-info" style={{color:'pink',fontFamily:'Cookie',fontSize:'30px',borderRadius:' 30px',paddingleft:'50px'}}>Filter by rating</Button>
-  {tabStar.map((star) => (
-  
-              <span className={star.isColored?"gold":"black"} onClick={() => changeColor(star.id)}>{star.icon}</span>
-              
-            ))}
+     
           <Search handleSearch={handleSearch}/>
-          
-       <Movielist movies={newlist} search={search} tabStar={tabStar} />
+          <ReactStars
+    count={5}
+    onChange={ratingChanged}
+    size={24}
+    activeColor="#ffd700"
+  />
+       <Movielist movies={newlist.filter(movie=>movie.title.toLocaleLowerCase().includes(search.toLocaleLowerCase())&& movie.rating>= newRating)}  />
           <Add handlemovie={handlemovie}/>
+
         
       </header>
     </div>

@@ -13,7 +13,9 @@
   }
 }
 
+
 .App-header {
+  background-image: url(https://i.pinimg.com/originals/4c/ba/b9/4cbab97eaf40a31982176951814d0c11.gif);
   background-color: #282c34;
   min-height: 100vh;
   display:block;

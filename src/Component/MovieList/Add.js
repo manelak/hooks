@@ -31,7 +31,8 @@ function Add({handlemovie}) {
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={()=>{handleClose();handlemovie()}}>
+            <Button variant="primary" onClick={()=>{handleClose();handlemovie(newmovie
+              )}}>
               Save Changes
             </Button>
           </Modal.Footer>
