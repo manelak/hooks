@@ -16,6 +16,7 @@ const MovieCard = ({movies}) => {
     <Card.Text>
      {movies.description}
     </Card.Text>
+    
    
 <span>{movies.rating}</span>
   </Card.Body>
